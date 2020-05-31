@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task listing</title>
+</head>
+<body>
+<header>
+    <span th:text="#{lang.change}"></span>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+    </select>
+</header>
+<h4>Tasks</h4>
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{title}">Title</th>
+        <th th:text="#{duedate}">Due Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="*{task.title}"></td>
+        <td th:text="*{task.dueDate}"></td>
+        <td><a th:href="@{/tasks/{id} (id=${task.id})}">Details</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

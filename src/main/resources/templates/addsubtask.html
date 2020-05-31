@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Subtask</title>
+</head>
+<body>
+<header>
+    <span th:text="#{lang.change}"></span>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+    </select>
+</header>
+<form th:method="post" th:action="@{/tasks/{id}/sub/create (id=${id})}" th:object="${subtask}">
+    <h4>Add subtask</h4>
+    <div>
+        <input type="hidden" th:value="${id}" id="id" name="id">
+    </div>
+    <div>
+        <label for="title">Title: </label>
+        <input type="text" th:field="*{title}">
+        <p th:errors="*{title}"></p>
+    </div>
+    <div>
+        <label for="description">Description: </label>
+        <input type="text" th:field="*{description}">
+        <p th:errors="*{description}"></p>
+    </div>
+    <input type="submit" value="Add subtask">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    let url = window.location.pathname;
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace(url + '?lang=' + selectedOption);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

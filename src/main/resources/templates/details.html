@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+<header>
+    <span th:text="#{lang.change}"></span>
+    <select id="locales">
+        <option value=""></option>
+        <option value="en" th:text="#{lang.eng}"></option>
+        <option value="nl" th:text="#{lang.nl}"></option>
+    </select>
+</header>
+<h2>Task</h2>
+<ul>
+    <li th:each="task : ${tasks}"></li>
+    <li th:text="*{task.title}">Title: </li>
+    <li th:text="*{task.dueDate}">Due Date: </li>
+    <li th:text="*{task.description}">Description: </li>
+    <li><a th:href="@{/tasks/edit/{id} (id=${task.id})}">Edit a task</a></li>
+    <li><a th:href="@{/tasks/{id}/sub/create (id=${task.id})}">Create subtask</a></li>
+</ul>
+<ul th:each="subtask : ${task.subtasks}">
+    <li th:text="${subtask.title}"></li>
+    <p th:text="${subtask.description}"></p>
+</ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

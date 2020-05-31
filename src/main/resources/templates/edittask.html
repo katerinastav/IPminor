@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task</title>
+</head>
+<body>
+<form th:method="post" th:action="@{/tasks/edit/{id} (id=${id})}" th:object="${task}">
+    <h4>Add task</h4>
+    <p th:text="${#fields.globalErrors()}"></p>
+    <div>
+        <label for="title">Title: </label>
+        <input type="text" th:field="*{title}">
+        <p th:errors="*{title}"></p>
+    </div>
+    <div>
+        <label for="dueDate">Due Date: </label>
+        <input type="datetime-local" th:field="*{dueDate}">
+        <p th:errors="*{dueDate}"></p>
+    </div>
+    <div>
+        <label for="description">Description: </label>
+        <input type="text" th:field="*{description}">
+        <p th:errors="*{description}"></p>
+    </div>
+    <input type="submit" value="Edit task">
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            let selectedOption = $('#locales').val();
+            if (selectedOption !== ''){
+                window.location.replace('?lang=' + selectedOption);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
